@@ -1,8 +1,6 @@
 // CRUD (create, read, update, delete) 
 
-const { serializeWithBufferAndIndex } = require('bson')
-const mongodb = require('mongodb')
-const MongoClient = mongodb.MongoClient
+const { MongoClient, ObjectId } = require('mongodb')
 
 const connectionURL = 'mongodb://127.0.0.1:27017'
 const databaseName = 'task-manager'
@@ -13,49 +11,34 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
     }
 
     const db = client.db(databaseName)
+
     /*
-        db.collection('users').insertOne({
-            name: 'Serhii',
-            age: 41
-        }, (error, result) => {
-    
-            if (error) {
-                return console.log('Unable to insert user!')
-            }
-    
-            console.log(result)
-    
-        })
+    db.collection('users').findOne({ _id: new ObjectId('62caacc6f529f809ab458fc9') }, (error, user) => {
+        if (error) {
+            console.log('Unable to fetch!')
+        }
+        console.log(user)
+    })
     */
     /*
-        db.collection('users').insertMany([
-            {
-                name: 'Jen',
-                age: 21
-            },
-            {
-                name: 'Gunther',
-                age: 28
-            }], (error, result) => {
-    
-                if (error) {
-                    return console.log('Unable to insert users!')
-                }
-    
-                console.log(result)
-    
-            })
+    db.collection('users').find({ age: 25 }).toArray((error, users) => {
+        console.log(users)
+    })
+
+    db.collection('users').find({ age: 25 }).count((error, count) => {
+        console.log(count)
+    })
     */
-
-    db.collection('tasks').insertMany([
-        { description: 'Write code', completed: true },
-        { description: 'Run the code', completed: false },
-        { description: 'Check result', completed: false }],
-        (error, result) => {
-            if (error) {
-                return console.log('Unable to insert tasks!')
-            }
-
-            console.log(result.insertedIds)
-        })
+    db.collection('tasks').findOne({ _id: new ObjectId('62b4d7e1a8d51556e93ee301') }, (error, user) => {
+        if (error) {
+            console.log('Unable to fetch!')
+        }
+        console.log(user)
+    })
+    db.collection('tasks').find({ completed: false }).toArray((error, tasks) => {
+        if (error) {
+            console.log('Unable to fetch!')
+        }
+        console.log(tasks)
+    })
 })
