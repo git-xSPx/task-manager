@@ -16,10 +16,11 @@ app.post('/users', async (req, res) => {
     // }).catch((e) => {
     //     res.status(400).send(e)
     // })
-    
-    try
+
+    try {
         await user.save()
         res.status(201).send(user)
+    }
     catch (e) {
         res.status(400).send(e)
     }
